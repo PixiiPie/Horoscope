@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">    
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Daily Horoscope</title>
+    <style>
+        body {font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; text-align: center; margin-top: 50px;}
+        select, button{ padding: 10px; font-size: 16px;}
+        .result {margin-top: 20px; font-size: 18px; color: #333;}
+        <link rel="stylesheet" href="horo.css"/>
+    </style>
+    </head>
+<body>
+    <h1>Get your Faily Horoscope</h1>
+
+    <label for "month">Birth Month:</label>
+    <select id="month">
+        <option value="1">January</option>
+        <option value="2">February</option>
+        <option value="3">March</option>
+        <option value="4">April</option>
+        <option value="5">May</option>
+        <option value="6">June</option>
+        <option value="7">July</option>
+        <option value="8">August</option>
+        <option value="9">September</option>
+        <option value="10">October</option>
+        <option value="11">November</option>
+        <option value="12">December</option>
+    </select>
+
+    <label for="day">Birth Day:</label>
+        <select id="day">
+            <option value="">--Select Day--</option>
+            ${[...Array(31).keys()].map(i => `<option value="${i + 1}">${i + 1}</option>`).join('')}
+        </select>
+        <br>
+        <button onclick="getHoroscope()">Get My Horoscope</button>
+
+        <div class="result" id="result"></div>
+
+<script>
+    function getZodiac(month, day) {
+        const signs = [
+            { sign: "Capricorn", from: [12, 22], to: [1, 19]},
+            { sign: "Aquarius", from: [1, 20], to: [2, 18]},
+            { sign: "Pisces", from: [2, 19], to: [3, 20]},
+            { sign: "Aries", from: [3, 21], to: [4, 19]},
+            { sign: "Taurus", from: [4, 20], to: [5, 20]},
+            { sign: "Gemini", from: [5, 21], to: [6, 20]},
+            { sign: "Cancer", from: [6, 21], to: [7, 22]},
+            { sign: "Leo", from: [7, 23], to: [8, 22]},
+            { sign: "Virgo", from: [8, 23], to: [9, 22]},
+            { sign: "Libra", from: [9, 23], to: [10, 22]},
+            { sign: "Scorpio", from: [10, 23], to: [11, 21]},
+            { sign: "Sagittarius", from: [11, 22], to: [12, 21]}
+        ];
+        for (const  sign, from, to } of signs) {
+            const fromMonth, fromDay] = from;
+            const [toMonth, toDay] = to;
+
+            if ((month === fromMonth && day >= fromDay) || (month === toMonth && day <= toDay)) {
+                return sign;
+            }
+        }
+        return "Capricorn";
+    }
+
+    function getHoroscope() {
+        const month = parseInt(document.getElementById("month").value);
+        const day = parseInt(document.getElementById("day").value);
+        if (!month || !day) {
+            document.getElementById("result").innerText = "Please select both month and day.";
+            return;
+        }
+        const sign = getZodiac(month, day);
+        const horoscopes = {
+            "Aries": "Today is a great day to start new projects.",
+            "Taurus": "You may find comfort in familiar routines today.",
+            "Gemini": "Communication is key; reach out to friends.",
+            "Cancer": "Emotional connections will be strong today.",
+            "Leo": "Your creativity will shine; share your ideas.",
+            "Virgo": "Focus on details; organization will benefit you.",
+            "Libra": "Balance is essential; seek harmony in relationships.",
+            "Scorpio": "Intense emotions may surface; embrace them.",
+            "Sagittarius": "Adventure awaits; explore new horizons.",
+            "Capricorn": "Hard work will pay off; stay disciplined.",
+            "Aquarius": "Innovation is your strength; think outside the box.",
+            "Pisces": "Intuition will guide you; trust your instincts."
+        };
+        document.getElementById("result").innerText = `Your're a' ${sign}.!\n\n ${horoscopes[sign]}`;
+    }
+    <script src="horo.js"></script>
+    </script>
+    </body>
+    </select>
+</html>
